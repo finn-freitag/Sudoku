@@ -15,15 +15,26 @@ namespace Sudoku
     {
         public Sudoku Sudoku;
 
+        private TextBox[] textBoxes = new TextBox[81];
+
         public Form1()
         {
             InitializeComponent();
+            InitTextBoxes();
             Sudoku = new Sudoku();
+        }
+
+        private void InitTextBoxes()
+        {
+            for(int i = 0; i < this.Controls.Count; i++)
+            {
+                if (this.Controls[i] is TextBox) textBoxes[((TextBox)this.Controls[i]).TabIndex] = (TextBox)this.Controls[i];
+            }
         }
 
         public void Sync()
         {
-            for(int i = 0; i < 9; i++)
+            for(int i = 0; i < 81; i++)
             {
                 if (textBoxes[i].Text == "") Sudoku.gameArea[i] = Sudoku.EMPTYSLOT; else Sudoku.gameArea[i] = Convert.ToInt32(textBoxes[i].Text);
             }
@@ -31,7 +42,7 @@ namespace Sudoku
 
         public void ReverseSync()
         {
-            for(int i = 0; i < 9; i++)
+            for(int i = 0; i < 81; i++)
             {
                 if (Sudoku.gameArea[i] == Sudoku.EMPTYSLOT) textBoxes[i].Text = ""; else textBoxes[i].Text = Convert.ToString(Sudoku.gameArea[i]);
             }
@@ -40,6 +51,7 @@ namespace Sudoku
         private void button6_Click(object sender, EventArgs e)
         {
             // Validate
+            Sync();
             if (Sudoku.isValidSolved())
             {
                 MessageBox.Show("This Sudoku is solved correctly!");
@@ -53,8 +65,9 @@ namespace Sudoku
         private void button4_Click(object sender, EventArgs e)
         {
             // Export Csv
+            Sync();
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.FileName = "CSV File|*.csv";
+            sfd.Filter = "CSV File (*.csv)|*.csv";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 File.WriteAllBytes(sfd.FileName, new CsvExporter().Export(Sudoku));
@@ -65,11 +78,33 @@ namespace Sudoku
         {
             // Import Csv
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "CSV File|*.csv";
+            ofd.Filter = "CSV File (*.csv)|*.csv";
             if(ofd.ShowDialog() == DialogResult.OK)
             {
                 Sudoku = new CsvImporter().Import(File.ReadAllBytes(ofd.FileName));
                 ReverseSync();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Solve
+            Sync();
+            if(new SudokuSolver().Solve(Sudoku))
+            {
+                ReverseSync();
+            }
+            else
+            {
+                MessageBox.Show("Unsolvable!");
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            for(int i = 0; i < textBoxes.Length; i++)
+            {
+                textBoxes[i].Text = "";
             }
         }
     }

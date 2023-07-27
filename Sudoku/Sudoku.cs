@@ -47,6 +47,39 @@ namespace Sudoku
             return Get(x, y) == EMPTYSLOT;
         }
 
+        public bool fitsNumber(int x, int y, int number)
+        {
+            for (int yb = y - (y % 3); yb < 3 + y - (y % 3); yb++)
+            {
+                for (int xb = x - (x % 3); xb < 3 + x - (x % 3); xb++)
+                {
+                    if (this[xb, yb] == number) return false;
+                }
+            }
+
+            for(int xr = 0; xr < 9; xr++)
+            {
+                if (this[xr, y] == number) return false;
+            }
+
+            for(int yc = 0; yc < 9; yc++)
+            {
+                if (this[x, yc] == number) return false;
+            }
+
+            return true;
+        }
+
+        public List<(int x, int y)> getFreePlaces()
+        {
+            List<(int, int)> freePlaces = new List<(int, int)>();
+            for(int i = 0; i < gameArea.Length; i++)
+            {
+                if (gameArea[i] == EMPTYSLOT) freePlaces.Add((i % 9, i / 9));
+            }
+            return freePlaces;
+        }
+
         public bool isValidSolved()
         {
             // Blocks:
