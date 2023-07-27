@@ -40,10 +40,9 @@ namespace Sudoku
 
             // try to brute force
 
-            Sudoku newTry = (Sudoku)sudoku.Clone();
-
             for(int i = 0; i < possibilities[0].possibleNums.Length; i++)
             {
+                Sudoku newTry = (Sudoku)sudoku.Clone();
                 newTry[possibilities[0].x, possibilities[0].y] = possibilities[0].possibleNums[i];
                 bool success = Solve(newTry);
                 if (success)
