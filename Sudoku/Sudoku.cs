@@ -122,5 +122,16 @@ namespace Sudoku
             }
             return clone;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Sudoku)) return false;
+            Sudoku s = (Sudoku)obj;
+            for (int i = 0; i < gameArea.Length; i++)
+            {
+                if (s.gameArea[i] != gameArea[i]) return false;
+            }
+            return true;
+        }
     }
 }

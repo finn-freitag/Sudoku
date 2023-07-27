@@ -102,10 +102,18 @@ namespace Sudoku
 
         private void button7_Click(object sender, EventArgs e)
         {
+            // Clear
             for(int i = 0; i < textBoxes.Length; i++)
             {
                 textBoxes[i].Text = "";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Generate
+            Sudoku = new SudokuGenerator().Generate();
+            ReverseSync();
         }
     }
 }
