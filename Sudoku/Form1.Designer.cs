@@ -836,6 +836,7 @@
             this.button4.TabIndex = 88;
             this.button4.Text = "Export as *.csv";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -845,6 +846,7 @@
             this.button5.TabIndex = 89;
             this.button5.Text = "Load from *.csv";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -854,6 +856,7 @@
             this.button6.TabIndex = 90;
             this.button6.Text = "Validate";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
@@ -1042,6 +1045,7 @@
         private System.Windows.Forms.TextBox textBox79;
         private System.Windows.Forms.TextBox textBox80;
         private System.Windows.Forms.TextBox textBox81;
+        private System.Windows.Forms.TextBox[] textBoxes;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
