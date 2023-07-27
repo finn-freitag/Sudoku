@@ -58,6 +58,7 @@
     <Compile Include="ISudokuGenerator.cs" />
     <Compile Include="ISudokuImporter.cs" />
     <Compile Include="ISudokuSolver.cs" />
+    <Compile Include="PngExporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sudoku.cs" />

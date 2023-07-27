@@ -115,5 +115,17 @@ namespace Sudoku
             Sudoku = new SudokuGenerator().Generate();
             ReverseSync();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            // Export Png
+            Sync();
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PNG Image (*.png)|*.png";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllBytes(sfd.FileName, new PngExporter().Export(Sudoku));
+            }
+        }
     }
 }
